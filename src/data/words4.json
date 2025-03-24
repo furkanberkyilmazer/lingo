@@ -1,3 +1,29 @@
 {
-    "words": ["AKÜL", "BİLE", "CAMI", "DÜET", "ESNA", "FARK", "GÖLÜ", "HALI"]
+    "words": [
+      "ABAT", "ACIK", "AÇIK", "ADAM", "ADIM", "AGAH", "AĞIZ", "AĞRI", "AKIL", "AKIN",
+      "AKSİ", "ALAN", "ALAY", "ALGI", "ALIM", "ALTI", "AMAÇ", "AMCA", "AMEL", "ANAÇ",
+      "ANIT", "ANLA", "ARDI", "ARKA", "ARTI", "ASİL", "AŞIK", "AŞIM", "AŞIN", "AŞIR",
+      "ATAS", "ATIK", "ATLA", "AVAZ", "AYIN", "AYNA", "AZAP", "AZİZ", "BABA", "BACI",
+      "BADE", "BAKI", "BALK", "BARI", "BASİ", "BAYT", "BAZI", "BEKA", "BİRA", "BİYA",
+      "BOĞA", "BOŞA", "BÜKE", "BÜST", "CABA", "CADI", "CAİZ", "CANA", "CEHA", "CEVİ",
+      "CİLA", "CİVA", "CÜCE", "CÜRE", "DAHA", "DAMA", "DAMİ", "DANE", "DARİ", "DAVR",
+      "DAZE", "DENE", "DERİ", "DEST", "DİRE", "DİVA", "DOĞA", "DOĞU", "DÖRT", "EBAT",
+      "EDEP", "EDİM", "EDİT", "EĞER", "EĞİL", "EKSİ", "ELAN", "ELİF", "EMAY", "EMİR",
+      "EMLİ", "ENES", "ENİN", "ENSİ", "EPEY", "ERDE", "ERİK", "ERİN", "ESAS", "ESKİ",
+      "ETAP", "EVCİ", "EVİM", "EZEL", "FASIL", "FAZİ", "FELÇ", "FERİ", "FEVR", "FİDAN",
+      "FİKİ", "FİLİ", "FİRA", "FİYAT", "FUAY", "GABİ", "GAZE", "GENE", "GEZE", "GİTAR",
+      "GİYİM", "GÖÇÜ", "GÖNÜ", "GÖRE", "GÖZÜ", "GÜRÜ", "GÜYA", "HAFİ", "HAİN", "HAKİ",
+      "HALA", "HALK", "HALT", "HARA", "HARİ", "HATA", "HAZİ", "HEBA", "HECE", "HİLE",
+      "HİRA", "HORA", "HÜDA", "İÇİM", "İDEAL", "İKİZ", "İLER", "İLİM", "İLKE", "İLME",
+      "İLTİ", "İMGE", "İNCE", "İNDİ", "İNME", "İNSİ", "İPTAL", "İREM", "İTİM", "İTİN",
+      "İZAH", "İZLE", "JANT", "JOKE", "JÜLİ", "JÜTE", "KABA", "KAFE", "KALA", "KAMI",
+      "KARA", "KARI", "KAVİ", "KAYA", "KAYI", "KEÇE", "KEMİ", "KEŞİ", "KİMİ", "KİTA",
+      "KÖŞE", "KÜLT", "LAHİ", "LALA", "LAZA", "LEKE", "LİMA", "LİRİ", "LOKA", "LÜZÜ",
+      "MADA", "MAİL", "MAKİ", "MAKS", "MANA", "MARİ", "MEGA", "MERİ", "MEŞE", "MEYD",
+      "MİLY", "MİRA", "MİZA", "MİZO", "MOKA", "MONO", "MÜTE", "NABİ", "NADA", "NAKİ",
+      "NARİ", "NASİ", "NEBİ", "NESİ", "NEŞE", "NİCE", "NİSA", "NİYA", "NOKA", "NÖTR",
+      "OBJE", "OKİL", "OKRA", "OKSİ", "OLGU", "OMUZ", "ONAR", "ONUR", "ORAK", "ORAN",
+      "ORTA", "OTİK", "ÖDÜN", "ÖKÜZ", "ÖNEM", "ÖRGÜ", "ÖZEN", "PABU", "PAÇA", "PALA",
+      "PARİ", "PATO", "PENA", "PİLT", "PİRE", "PİYA", "POŞE", "PUAN", "PÜRÜ", "PÜZE"
+    ]
   }

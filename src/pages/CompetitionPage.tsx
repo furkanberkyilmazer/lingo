@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getRandomWord } from '../utils/api';
 import styled from 'styled-components';
 import Confetti from 'react-confetti';
 
-const MAX_ATTEMPTS = 5; // Maksimum tahmin hakkı
+
+const MAX_ATTEMPTS =5 ; //5 tahmin hakkı
 
 const Container = styled.div`
   text-align: center;
@@ -156,11 +158,18 @@ const CheckboxInput = styled.input`
 `;
 
 const CompetitionPage: React.FC = () => {
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const wordLength = parseInt(queryParams.get('length') || '5', 10);
+
+
   const [word, setWord] = useState<string>('');
   const [guess, setGuess] = useState<string>('');
   const [attempts, setAttempts] = useState<string[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isWinner, setIsWinner] = useState<boolean>(false);
+
 
   // Checkbox ve rastgele harf için state'ler
   const [showRandomLetter, setShowRandomLetter] = useState<boolean>(() => {
@@ -170,13 +179,13 @@ const CompetitionPage: React.FC = () => {
   });
   const [revealedLetterIndex, setRevealedLetterIndex] = useState<number | null>(null);
 
+  
   useEffect(() => {
-    const randomWord = getRandomWord();
+    const randomWord = getRandomWord(wordLength);
     setWord(randomWord);
-    console.log(randomWord);
     // Eğer checkbox açıksa, rastgele bir harfi aç
     if (showRandomLetter) {
-      const randomIndex = Math.floor(Math.random() * 5); // 0 ile 4 arasında rastgele bir indeks
+      const randomIndex = Math.floor(Math.random() * wordLength); 
       setRevealedLetterIndex(randomIndex);
     } else {
       setRevealedLetterIndex(null); // Harfi gizle
@@ -187,26 +196,24 @@ const CompetitionPage: React.FC = () => {
   }, [showRandomLetter]);
 
   const handleGuess = () => {
-    if (guess.length === 5) {
-      const newAttempts = [...attempts, guess]; // Yeni tahmini ekle
+    if (guess.length === wordLength) {
+      const newAttempts = [...attempts, guess];
       setAttempts(newAttempts);
 
       if (guess === word) {
-        // Kelime doğru bilindiğinde
         setTimeout(() => {
           setIsWinner(true);
           setShowModal(true);
-        }, 1000); // 1 saniye sonra popup'ı göster
+        }, 1000);
       } else if (newAttempts.length >= MAX_ATTEMPTS) {
-        // Tahmin hakkı bittiğinde
         setTimeout(() => {
           setShowModal(true);
-        }, 1000); // 1 saniye sonra popup'ı göster
+        }, 1000);
       }
 
       setGuess('');
     } else {
-      alert('Lütfen 5 harfli bir kelime girin.');
+      alert(`Lütfen ${wordLength} harfli bir kelime girin.`);
     }
   };
 
@@ -224,30 +231,34 @@ const CompetitionPage: React.FC = () => {
       const attempt = attempts[i] || '';
       grid.push(
         <Row key={i}>
-          {Array.from({ length: 5 }).map((_, j) => {
+          {Array.from({ length: wordLength }).map((_, j) => {
             const letter = attempt[j] || '';
-            let color = '#ccc'; // Varsayılan renk (gri)
-  
-            // Açık harf sadece ilk satırda ve doğru pozisyondaysa gösterilsin
+            let color = '#ccc';
             let displayLetter = '';
-          if (i === 0 && revealedLetterIndex !== null && j === revealedLetterIndex) {
-            displayLetter = word[j];
-            color = 'green'; // Açık harf her zaman yeşil
-          }
-  
-            // Tahmin edilen harfleri kontrol et
-            if (letter) {
-              if (word[j] === letter) {
-                color = 'green';
-              } else if (word.includes(letter)) {
-                const letterCountInWord = word.split('').filter((char) => char === letter).length;
-                const letterCountInAttempt = attempt.split('').filter((char) => char === letter).length;
-                if (letterCountInAttempt <= letterCountInWord) {
-                  color = 'yellow';
-                }
-              }
+            
+            // Açık harf sadece ilk satırda ve doğru pozisyondaysa gösterilsin
+            if (i === 0 && revealedLetterIndex !== null && j === revealedLetterIndex) {
+              displayLetter = word[j];
+              color = 'green';
+               // Eğer bu pozisyonda tahmin yapıldıysa ve harf doğru değilse kırmızı yap
+            if (letter && letter !== displayLetter) {
+              color = '#ff4444'; // Kırmızı (yanlış harf)
             }
-  
+            }
+
+        // Tahmin edilen harfleri kontrol et (sadece açık harf pozisyonu değilse)
+        if (letter && !(i === 0 && j === revealedLetterIndex)) {
+          if (word[j] === letter) {
+            color = 'green';
+          } else if (word.includes(letter)) {
+            const letterCountInWord = word.split('').filter((char) => char === letter).length;
+            const letterCountInAttempt = attempt.split('').filter((char) => char === letter).length;
+            if (letterCountInAttempt <= letterCountInWord) {
+              color = 'yellow';
+            }
+          }
+        }
+
             return (
               <Cell key={j} filled={!!letter || !!displayLetter} color={color}>
                 {letter || displayLetter}
@@ -260,9 +271,10 @@ const CompetitionPage: React.FC = () => {
     return grid;
   };
 
+
   return (
     <Container>
-      <Title>Wordle Türkiye Yarışması</Title>
+     <Title>Wordle Türkiye Yarışması - {wordLength} Harfli Kelime</Title>
 
       {/* Checkbox */}
       <CheckboxContainer>
@@ -276,20 +288,19 @@ const CompetitionPage: React.FC = () => {
         </CheckboxLabel>
       </CheckboxContainer>
 
-      {/* Diğer bileşenler */}
-      <p>Tahmin etmeniz gereken kelime: {word}</p>
+    
       <Input
         type="text"
         value={guess}
         onChange={(e) => setGuess(e.target.value.toUpperCase())}
-        maxLength={5}
+        maxLength={wordLength}
       />
       <Button onClick={handleGuess}>Tahmin Et</Button>
       <GridContainer>
         {renderGrid()}
       </GridContainer>
 
-      {/* Popup ve diğer bileşenler */}
+     
       {isWinner && <Confetti />}
       {showModal && (
         <>
