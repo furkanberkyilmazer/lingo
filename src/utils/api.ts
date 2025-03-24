@@ -1,5 +1,5 @@
 // src/utils/api.ts
-import wordsData from '../data/words.json';
+import wordsData from '../data/words5.json';
 
 // Rastgele bir kelime seçme fonksiyonu
 export const getRandomWord = (): string => {

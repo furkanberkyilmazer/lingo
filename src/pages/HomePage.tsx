@@ -39,7 +39,7 @@ const StartButton = styled(Link)`
 const HomePage: React.FC = () => {
   return (
     <Container>
-      <Title>Lingo Türkiye Yarışması</Title>
+      <Title>Wordle Türkiye Yarışması</Title>
       <Description>
         5 harfli kelimeleri tahmin etmeye hazır mısın? Hemen başla ve becerilerini test et!
       </Description>

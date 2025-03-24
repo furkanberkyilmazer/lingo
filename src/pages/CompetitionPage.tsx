@@ -7,7 +7,7 @@ const MAX_ATTEMPTS = 5; // Maksimum tahmin hakkı
 
 const Container = styled.div`
   text-align: center;
-  background-color: white;
+  
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -26,6 +26,8 @@ const Input = styled.input`
   border: 2px solid #ccc;
   border-radius: 5px;
   outline: none;
+  color:black;
+  background-color: white;
 
   &:focus {
     border-color: #007bff;
@@ -171,7 +173,7 @@ const CompetitionPage: React.FC = () => {
   useEffect(() => {
     const randomWord = getRandomWord();
     setWord(randomWord);
-
+    console.log(randomWord);
     // Eğer checkbox açıksa, rastgele bir harfi aç
     if (showRandomLetter) {
       const randomIndex = Math.floor(Math.random() * 5); // 0 ile 4 arasında rastgele bir indeks
@@ -225,28 +227,27 @@ const CompetitionPage: React.FC = () => {
           {Array.from({ length: 5 }).map((_, j) => {
             const letter = attempt[j] || '';
             let color = '#ccc'; // Varsayılan renk (gri)
-
-            // Harf doğru pozisyondaysa yeşil yap
-            if (word[j] === letter) {
-              color = 'green';
-            } else if (word.includes(letter)) {
-              // Harf kelimede varsa ama yanlış pozisyondaysa sarı yap
-              const letterCountInWord = word.split('').filter((char) => char === letter).length;
-              const letterCountInAttempt = attempt.split('').filter((char) => char === letter).length;
-
-              // Eğer tahmin edilen kelimede bu harf daha fazla kullanılmışsa, sarı yapma
-              if (letterCountInAttempt <= letterCountInWord) {
-                color = 'yellow';
+  
+            // Açık harf sadece ilk satırda ve doğru pozisyondaysa gösterilsin
+            let displayLetter = '';
+          if (i === 0 && revealedLetterIndex !== null && j === revealedLetterIndex) {
+            displayLetter = word[j];
+            color = 'green'; // Açık harf her zaman yeşil
+          }
+  
+            // Tahmin edilen harfleri kontrol et
+            if (letter) {
+              if (word[j] === letter) {
+                color = 'green';
+              } else if (word.includes(letter)) {
+                const letterCountInWord = word.split('').filter((char) => char === letter).length;
+                const letterCountInAttempt = attempt.split('').filter((char) => char === letter).length;
+                if (letterCountInAttempt <= letterCountInWord) {
+                  color = 'yellow';
+                }
               }
             }
-
-            // Checkbox açıksa ve bu harf rastgele açılan harfse, yeşil yap
-            let displayLetter = '';
-            if (i === 0 && revealedLetterIndex !== null && j === revealedLetterIndex) {
-              displayLetter = word[j];
-              color = 'green'; // Doğru harf olduğu için yeşil
-            }
-
+  
             return (
               <Cell key={j} filled={!!letter || !!displayLetter} color={color}>
                 {letter || displayLetter}
@@ -261,7 +262,7 @@ const CompetitionPage: React.FC = () => {
 
   return (
     <Container>
-      <Title>Lingo Yarışması</Title>
+      <Title>Wordle Türkiye Yarışması</Title>
 
       {/* Checkbox */}
       <CheckboxContainer>
